@@ -12,42 +12,83 @@ watch(urlValue, (newValue) => {
 </script>
 
 <template>
-    <main class="col container">
-        <h1>Link Shortener</h1>
-        <input 
-        :class="!urlValid ? 'red' : ''"
-        v-model="urlValue" 
-        type="text" 
-        placeholder="https://siakad.uns.ac.id">
+    <main>
+        <div class="container col">
+            <h2>URL Shortener</h2>
+            <div class="row">
+                <label class="input input-left">From:</label>
+                <input class="input input-right" type="text">
+            </div>
+            <div class="row">
+                <label class="input input-left">To: </label>
+                <label class="input">go.maroisa.org/</label>
+                <input class="input input-right" type="text">
+            </div>
+        </div>
     </main>
 </template>
 
 <style scoped>
 
-.container {
-    flex-grow: 1;
-    align-items: center;
+main {
+    height: 100%;
+    width: 100%;
+    
+    display: flex;
     justify-content: center;
-    gap: 4rem;
+    align-items: center;
 }
 
-input:focus {
-    outline: 3px solid rgba(0, 100, 0, 1);
-    transition: all 100ms;
+.container {
+    width: 500px;
+    text-align: center;
+
+    gap: 1.5rem;
 }
 
-input {
+.input {
+    flex-grow: 1;
     padding: 0.8rem;
+    background-color: white;
     border: none;
-    border-radius: 0.4rem;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
     outline: 1px solid rgba(0, 0, 0, 0);
-    min-width: 400px;
     transition: all 100ms;
+}
+
+.input:focus {
+    outline: 3px solid rgba(0, 100, 0, 1);
+}
+
+.input-left {
+    flex-grow: 0;
+    min-width: 100px;
+    border-radius: 10px 0 0 10px;
+    background-color: var(--primary);
+    color: var(--secondary);
+}
+
+.input-right {
+    border-radius: 0 10px 10px 0;
 }
 
 .red:focus {
     outline-color: red;
+}
+
+@media screen and (max-width: 500px) {
+    .row {
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .input-left {
+        border-radius: 10px 10px 0 0;
+    }
+
+    .input-right {
+        border-radius: 0 0 10px 10px;
+    }
 }
 
 </style>

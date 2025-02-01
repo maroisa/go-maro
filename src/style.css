@@ -31,6 +31,10 @@ html, body, #app {
   flex-direction: column;
 }
 
+.grow {
+  flex-grow: 1;
+}
+
 header, main {
   padding: 0.8rem;
 }
