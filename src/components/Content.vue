@@ -17,12 +17,16 @@ watch(urlValue, (newValue) => {
             <h2>URL Shortener</h2>
             <div class="row">
                 <label class="input input-left">From:</label>
-                <input class="input input-right" type="text">
+                <input 
+                    v-model="urlValue" 
+                    class="input input-right" 
+                    :class="!urlValid ? 'red' : ''"
+                    type="text">
             </div>
             <div class="row">
                 <label class="input input-left">To: </label>
                 <label class="input">go.maroisa.org/</label>
-                <input class="input input-right" type="text">
+                <input placeholder="(blank for random)" class="input input-right" type="text">
             </div>
         </div>
     </main>
