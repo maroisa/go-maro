@@ -1,3 +1,6 @@
 services:
   web:
-    image: nginx:1.27
+    restart: always
+    build: .
+    ports:
+      - 3000:80
