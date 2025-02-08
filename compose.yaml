@@ -1,6 +1,7 @@
 services:
   web:
-    restart: always
     build: .
+    image: maroisa/go-maro
+    restart: always
     ports:
-      - 3000:80
+      - 3001:80
