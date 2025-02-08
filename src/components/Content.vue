@@ -1,12 +1,30 @@
 <script setup>
+import Modal from './Modal.vue';
 import { ref, watch } from 'vue';
 
 const urlValid = ref(false)
 const urlValue = ref("")
+const aliasValue = ref("")
+
+const aliasLabel = ref("")
+const urlLabel = ref("")
+
+function submit(){
+    if (aliasValue.value.length >= 32){
+        aliasLabel.value = "Alias too long"
+    }
+    
+    if (!urlValid.value){
+        urlLabel.value = "URL invalid"
+    }
+}
 
 watch(urlValue, (newValue) => {
     const pattern = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi
     urlValid.value = pattern.test(newValue)
+    if (urlValid.value) {
+        urlLabel.value = ""
+    }
 })
 
 </script>
@@ -18,16 +36,22 @@ watch(urlValue, (newValue) => {
             <div class="row">
                 <label class="input input-left">From:</label>
                 <input 
+                    placeholder="https://example.com"
                     v-model="urlValue" 
                     class="input input-right" 
                     :class="!urlValid ? 'red' : ''"
                     type="text">
             </div>
+
+            <span v-show="urlLabel" v-text="urlLabel" style="color: red;"></span>
+
             <div class="row">
                 <label class="input input-left">To: </label>
                 <label class="input">go.maroisa.org/</label>
-                <input placeholder="(blank for random)" class="input input-right" type="text">
+                <input v-model="aliasValue" placeholder="(blank for random)" class="input input-right" type="text">
             </div>
+            <button @click="submit" class="btn">Shorten!</button>
+            <span v-show="aliasLabel" v-text="aliasLabel" style="color: red;"></span>
         </div>
     </main>
 </template>
@@ -41,6 +65,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 .container {
@@ -48,6 +73,19 @@ main {
     text-align: center;
 
     gap: 1.5rem;
+}
+
+.btn {
+    padding: 0.8rem;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--primary);
+    color: white;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    background-color: rgb(0, 100, 0);
 }
 
 .input {

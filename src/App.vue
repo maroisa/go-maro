@@ -1,10 +1,7 @@
 <script setup>
-import TopNav from "./components/TopNav.vue"
-import Content from "./components/Content.vue"
-
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
-    <TopNav />
-    <Content />
+    <RouterView />
 </template>

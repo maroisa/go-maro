@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap');
-
 :root {
   --primary: #324642;
   --secondary: #c9cfc4;
@@ -14,11 +12,11 @@
 }
 
 html, body, #app {
-  font-family: "SUSE", serif;
   background-color: var(--secondary);
   color: var(--primary);
   height: 100%;
   width: 100%;
+  overflow:hidden;
 }
 
 .row {
