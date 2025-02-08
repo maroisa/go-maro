@@ -108,7 +108,7 @@ watch(shortenedUrl, (newValue) => {
             </div>
             <span v-show="aliasLabel" v-text="aliasLabel" style="color: red;"></span>
             <button @click="submit" class="btn">Shorten!</button>
-            <span v-show="shortenedUrl.length" style="color: green; font-weight: bold;">Success! </span>
+            <span v-show="shortenedUrl.length" v-text="shortenedUrl" style="color: green; font-weight: bold;"></span>
         </div>
     </main>
 </template>
