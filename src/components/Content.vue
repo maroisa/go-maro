@@ -8,10 +8,9 @@ const aliasValue = ref("")
 const aliasLabel = ref("")
 const urlLabel = ref("")
 
-const aliasElement = useTemplateRef("alias")
+const shortenedUrl = ref("")
 
 async function submit(){
-    aliasElement.value.style.color = "red"
     aliasLabel.value = ""
     urlLabel.value = ""
 
@@ -39,8 +38,7 @@ async function submit(){
     }
 
     const json = await result.json()
-    aliasLabel.value = "Success! https://go.maroisa.org/" + json.alias
-    aliasElement.value.style.color = "green"
+    shortenedUrl.value = "https://go.maroisa.org/" + json.alias
 }
 
 watch(urlValue, (newValue) => {
@@ -72,6 +70,14 @@ watch(aliasValue, (newValue) => {
     }
 })
 
+watch(shortenedUrl, (newValue) => {
+    if (newValue.length <= 0) return
+
+    setTimeout(() => {
+        shortenedUrl.value = ""
+    }, 5000);
+})
+
 </script>
 
 <template>
@@ -100,8 +106,9 @@ watch(aliasValue, (newValue) => {
                     :class="aliasLabel ? 'red' : ''"
                     type="text">
             </div>
-            <span v-show="aliasLabel" v-text="aliasLabel" ref="alias" style="color: red;"></span>
+            <span v-show="aliasLabel" v-text="aliasLabel" style="color: red;"></span>
             <button @click="submit" class="btn">Shorten!</button>
+            <span v-show="shortenedUrl.length" style="color: green; font-weight: bold;">Success! </span>
         </div>
     </main>
 </template>
