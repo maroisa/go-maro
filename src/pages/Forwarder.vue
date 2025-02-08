@@ -6,6 +6,8 @@ const route = useRoute()
 
 onBeforeMount(() => {
     fetch(import.meta.env.VITE_DATABASE_URL + "/" + route.params.alias)
+        .then(res => res.json())
+        .then(json => window.location.href = json.source)
 })
 
 </script>
