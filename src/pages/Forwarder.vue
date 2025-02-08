@@ -5,9 +5,13 @@ import { useRoute } from 'vue-router';
 const route = useRoute()
 
 onBeforeMount(() => {
-    fetch("localhost:5000/" + route.params.alias)
+    fetch(import.meta.env.VITE_DATABASE_URL + "/" + route.params.alias)
         .then(res => {
             console.log(res)
+            res.text()
+        })
+        .then(json => {
+            console.log(json)
         })
 })
 
