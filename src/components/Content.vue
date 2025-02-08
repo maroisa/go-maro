@@ -20,20 +20,7 @@ async function submit(){
         return
     }
 
-    if (aliasValue.value.length <= 0){
-        aliasLabel.value = "Alias Empty!"
-        return
-    }
-
-    if (/\s/gi.test(aliasValue.value)){
-        aliasLabel.value = "Alias contain whitespace!"
-        return
-    }
-
-    if (aliasValue.value.length >= 32){
-        aliasLabel.value = "Alias too long"
-        return
-    }
+    if (aliasLabel.value) return
 
     let data = { 
         "source": urlValue.value, 
@@ -59,8 +46,29 @@ async function submit(){
 watch(urlValue, (newValue) => {
     const pattern = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi
     urlValid.value = pattern.test(newValue)
+
     if (urlValid.value) {
         urlLabel.value = ""
+    }
+
+})
+
+watch(aliasValue, (newValue) => {
+    aliasLabel.value = ""
+
+    if (newValue.length >= 32){
+        aliasLabel.value = "Alias too long"
+        return
+    }
+
+    if (aliasValue.value.length <= 0){
+        aliasLabel.value = "Alias Empty!"
+        return
+    }
+
+    if (/\s/gi.test(aliasValue.value)){
+        aliasLabel.value = "Alias contain whitespace!"
+        return
     }
 })
 
@@ -85,10 +93,15 @@ watch(urlValue, (newValue) => {
             <div class="row">
                 <label class="input input-left">To: </label>
                 <label class="input">go.maroisa.org/</label>
-                <input v-model="aliasValue" placeholder="(blank for random)" class="input input-right" type="text">
+                <input 
+                    v-model="aliasValue" 
+                    placeholder="(Cannot blank)" 
+                    class="input input-right"
+                    :class="aliasLabel ? 'red' : ''"
+                    type="text">
             </div>
-            <button @click="submit" class="btn">Shorten!</button>
             <span v-show="aliasLabel" v-text="aliasLabel" ref="alias" style="color: red;"></span>
+            <button @click="submit" class="btn">Shorten!</button>
         </div>
     </main>
 </template>
