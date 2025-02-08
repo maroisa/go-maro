@@ -13,7 +13,7 @@ onBeforeMount(async () => {
 
     let source = json.source
 
-    if (/http(s?)/gi.test(source)){
+    if (!/http(s?)/gi.test(source)){
         source = "https://" + source
     }
 
