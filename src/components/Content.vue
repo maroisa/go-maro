@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, useTemplateRef, watch } from 'vue';
 
 const urlValid = ref(false)
 const urlValue = ref("")
@@ -8,9 +8,25 @@ const aliasValue = ref("")
 const aliasLabel = ref("")
 const urlLabel = ref("")
 
-function submit(){
+const aliasElement = useTemplateRef("alias")
+
+async function submit(){
+    aliasElement.value.style.color = "red"
+    aliasLabel.value = ""
+    urlLabel.value = ""
+
     if (!urlValid.value){
         urlLabel.value = "URL invalid"
+        return
+    }
+
+    if (aliasValue.value.length <= 0){
+        aliasLabel.value = "Alias Empty!"
+        return
+    }
+
+    if (/\s/gi.test(aliasValue.value)){
+        aliasLabel.value = "Alias contain whitespace!"
         return
     }
 
@@ -19,18 +35,25 @@ function submit(){
         return
     }
 
-    let data = JSON.stringify({ 
+    let data = { 
         "source": urlValue.value, 
         "alias": aliasValue.value 
+    }
+
+    const result = await fetch("/api/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
     })
 
-    fetch("/api/", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: data
-    })
+    if (result.status != 200){
+        aliasLabel.value = "Alias already exists!"
+        return
+    }
+
+    const json = await result.json()
+    aliasLabel.value = "Success! https://go.maroisa.org/" + json.alias
+    aliasElement.value.style.color = "green"
 }
 
 watch(urlValue, (newValue) => {
@@ -65,7 +88,7 @@ watch(urlValue, (newValue) => {
                 <input v-model="aliasValue" placeholder="(blank for random)" class="input input-right" type="text">
             </div>
             <button @click="submit" class="btn">Shorten!</button>
-            <span v-show="aliasLabel" v-text="aliasLabel" style="color: red;"></span>
+            <span v-show="aliasLabel" v-text="aliasLabel" ref="alias" style="color: red;"></span>
         </div>
     </main>
 </template>

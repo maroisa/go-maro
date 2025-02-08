@@ -10,13 +10,14 @@ onBeforeMount(async () => {
     if (result.status != 200) window.location.href = "/"
 
     const json = await result.json()
-    const str = "google.com"
 
-    if (!json.source.contains(/http(s?)/gi)){
-        json.source = "https://" + json.source
+    let source = json.source
+
+    if (/http(s?)/gi.test(source)){
+        source = "https://" + source
     }
 
-    window.location.href = json.source
+    window.location.href = source
 })
 
 </script>
