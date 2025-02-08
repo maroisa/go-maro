@@ -4,10 +4,19 @@ import { useRoute } from 'vue-router';
 
 const route = useRoute()
 
-onBeforeMount(() => {
-    fetch("/api/" + route.params.alias)
-        .then(res => res.json())
-        .then(json => window.location.href = json.source)
+onBeforeMount(async () => {
+    const result = await fetch("/api/" + route.params.alias)
+    
+    if (result.status != 200) window.location.href = "/"
+
+    const json = await result.json()
+    const str = "google.com"
+
+    if (!json.source.contains(/http(s?)/gi)){
+        json.source = "https://" + json.source
+    }
+
+    window.location.href = json.source
 })
 
 </script>
