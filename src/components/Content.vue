@@ -19,10 +19,16 @@ function submit(){
         return
     }
 
-    let data = JSON.stringify({ "source": urlValue.value, "alias": aliasValue.value })
+    let data = JSON.stringify({ 
+        "source": urlValue.value, 
+        "alias": aliasValue.value 
+    })
 
     fetch("/api/", {
         method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
         body: data
     })
 }
