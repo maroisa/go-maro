@@ -1,5 +1,4 @@
 <script setup>
-import Modal from './Modal.vue';
 import { ref, watch } from 'vue';
 
 const urlValid = ref(false)
@@ -10,13 +9,22 @@ const aliasLabel = ref("")
 const urlLabel = ref("")
 
 function submit(){
-    if (aliasValue.value.length >= 32){
-        aliasLabel.value = "Alias too long"
-    }
-    
     if (!urlValid.value){
         urlLabel.value = "URL invalid"
+        return
     }
+
+    if (aliasValue.value.length >= 32){
+        aliasLabel.value = "Alias too long"
+        return
+    }
+
+    let data = JSON.stringify({ "source": urlValue.value, "alias": aliasValue.value })
+
+    fetch(import.meta.env.VITE_DATABASE_URL, {
+        method: "POST",
+        body: data
+    })
 }
 
 watch(urlValue, (newValue) => {
