@@ -38,7 +38,7 @@ async function submit(){
     }
 
     const json = await result.json()
-    shortenedUrl.value = "https://go.maroisa.org/" + json.alias
+    shortenedUrl.value = "Success! https://go.maroisa.org/" + json.alias
 }
 
 watch(urlValue, (newValue) => {
