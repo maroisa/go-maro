@@ -5,7 +5,7 @@ import { useRoute } from 'vue-router';
 const route = useRoute()
 
 onBeforeMount(() => {
-    fetch(import.meta.env.VITE_DATABASE_URL + "/" + route.params.alias)
+    fetch("/api/" + route.params.alias)
         .then(res => res.json())
         .then(json => window.location.href = json.source)
 })

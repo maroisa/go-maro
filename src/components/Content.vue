@@ -21,7 +21,7 @@ function submit(){
 
     let data = JSON.stringify({ "source": urlValue.value, "alias": aliasValue.value })
 
-    fetch(import.meta.env.VITE_DATABASE_URL, {
+    fetch("/api/", {
         method: "POST",
         body: data
     })
