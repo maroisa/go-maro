@@ -1,0 +1,58 @@
+@font-face {
+    font-family: "SUSE";
+    src: url("/SUSE.ttf");
+}
+
+:root {
+    --green-color: #324642;
+    --white-color: #daddd3;
+    --gray-color: gray;
+    --shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+}
+
+html, body, #root {
+    height: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-sizing: border-box;
+
+    color: var(--green-color);
+    background-color: var(--white-color);
+    
+    font-family: "SUSE";
+}
+
+button {
+    background-color: var(--green-color);
+    color: var(--white-color);
+    padding: 1rem;
+    box-shadow: var(--shadow);
+}
+
+button:active {
+    background-color: rgb(54, 110, 16);
+}
+
+h1, h1 > a {
+    text-decoration: none;
+
+    color: var(--white-color);
+    background-color: var(--green-color);
+}
+
+header {
+    z-index: 1;
+    background-color: var(--green-color);
+    color: var(--white-color);
+    padding: 1rem;
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.8);
+}
