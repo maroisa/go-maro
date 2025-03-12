@@ -9,7 +9,6 @@ export default function Forwarder(){
 
         const result = await fetch("/api/" + params.alias)
         if (result.status != 200) window.location.href = "/"
-        console.log(result)
 
         const json = await result.json()
         let source = json.source
@@ -18,8 +17,6 @@ export default function Forwarder(){
             source = "https://" + source
         }
 
-        console.log(source)
-    
         window.location.href = source
     })
 
