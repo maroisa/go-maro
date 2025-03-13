@@ -93,6 +93,12 @@ export default function Content(){
         }, 7000);
     }
 
+    const copyToClipboard = (event: Event) => {
+        event.preventDefault()
+        navigator.clipboard.writeText(shortenedUrl())
+        alert("Copied to clipboard")
+    }
+
     return <main>
         <h2 style={{"margin-bottom": "2rem"}}>URL Shortener</h2>
         <div class="row item item-form">
@@ -120,6 +126,6 @@ export default function Content(){
 
         <button onClick={submitForm} class="item">Shorten!</button>
         <p class="danger-text">{ apiMessage() }</p>
-        <p>{ shortenedUrl() }</p>
+        <a href="" onclick={copyToClipboard}>{ shortenedUrl() }</a>
     </main>
 }
