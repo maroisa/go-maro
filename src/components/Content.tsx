@@ -126,6 +126,11 @@ export default function Content(){
 
         <button onClick={submitForm} class="item">Shorten!</button>
         <p class="danger-text">{ apiMessage() }</p>
-        <a href="" onclick={copyToClipboard}>{ shortenedUrl() }</a>
+        <p 
+            style={{color: "var(--box-text-color)", "text-decoration": "underline"}} 
+            aria-label="copy to clipboard"
+            onclick={copyToClipboard}>
+            { shortenedUrl() }
+        </p>
     </main>
 }

@@ -16,7 +16,7 @@
 }
 
 [data-theme="dark"] {
-    --primary-color: #2d886a;
+    --primary-color: #2B8366;
     --secondary-color: #373b44;
     --secondary-header-text-color: var(--header-text-color);
     

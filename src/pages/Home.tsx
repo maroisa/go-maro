@@ -19,7 +19,7 @@ export default function Home(){
             <h1>
                 <A href="/">Go Maro</A>
             </h1>
-            <button onClick={toggleTheme} class="toggle-btn">
+            <button aria-label="Toggle theme" onClick={toggleTheme} class="toggle-btn">
                 <Show when={isDark()} fallback={<LightIcon size={20} />}>
                     <DarkIcon size={20} />
                 </Show>
