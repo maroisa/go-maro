@@ -4,10 +4,24 @@
 }
 
 :root {
-    --green-color: #324642;
-    --white-color: #daddd3;
-    --gray-color: gray;
+    --header-text-color: #daddd3;
+    --secondary-header-text-color: #324642;
+
+    --primary-color: #324642;
+    --secondary-color: #daddd3;
+
+    --box-background-color: white;
+    /* --box-text-color: gray; */
     --shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] {
+    --primary-color: #2d886a;
+    --secondary-color: #373b44;
+    --secondary-header-text-color: var(--header-text-color);
+    
+    --box-background-color: rgb(39, 41, 48);
+    --box-text-color: white;
 }
 
 #root {
@@ -25,15 +39,15 @@ html, body, #root {
     border: none;
     box-sizing: border-box;
 
-    color: var(--green-color);
-    background-color: var(--white-color);
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
     
     font-family: "SUSE";
 }
 
 button {
-    background-color: var(--green-color);
-    color: var(--white-color);
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
     padding: 1rem;
     box-shadow: var(--shadow);
 }
@@ -43,16 +57,32 @@ button:active {
 }
 
 h1, h1 > a {
+    padding: 0 0.5rem;
     text-decoration: none;
 
-    color: var(--white-color);
-    background-color: var(--green-color);
+    color: var(--header-text-color);
+    background-color: var(--primary-color);
 }
 
 header {
     z-index: 1;
-    background-color: var(--green-color);
-    color: var(--white-color);
-    padding: 1rem;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
     box-shadow: 0 0 24px rgba(0, 0, 0, 0.8);
+
+    justify-content: space-between;
+    align-items: center;
+}
+
+svg {
+    background-color: #00000000;
+}
+
+.toggle-btn {
+    box-shadow: none;
+    padding: 1rem;
+}
+
+.toggle-btn:active {
+    background-color: grey;
 }

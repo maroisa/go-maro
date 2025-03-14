@@ -14,6 +14,11 @@ main {
     flex-direction: row;
 }
 
+.subtitle {
+    margin-bottom: 2rem;
+    color: var(--secondary-header-text-color);
+}
+
 .item {
     width: 600px;
 }
@@ -22,12 +27,13 @@ main {
     flex-grow: 1;
     flex-basis: 0;
     padding: 1rem;
-    background-color: white;
+    background-color: var(--box-background-color);
+    color: var(--box-text-color);
     box-shadow: var(--shadow);
 }
 
 .item-form > *:first-child {
-    background-color: var(--green-color);
+    background-color: var(--primary-color);
     color: white;
 
     border-radius: 0.6rem 0 0 0.6rem;
@@ -45,7 +51,7 @@ main {
 }
 
 .item-input:active, .item-input:focus {
-    outline-color: var(--green-color);
+    outline-color: var(--primary-color);
 }
 
 .item-input:active.red, .item-input:focus.red {
@@ -53,6 +59,7 @@ main {
 }
 
 button.item {
+    color: white;
     border-radius: 0.5rem;
 }
 

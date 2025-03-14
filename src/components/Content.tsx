@@ -100,7 +100,7 @@ export default function Content(){
     }
 
     return <main>
-        <h2 style={{"margin-bottom": "2rem"}}>URL Shortener</h2>
+        <h2 class="subtitle">URL Shortener</h2>
         <div class="row item item-form">
             <label>Source</label>
             <input 
