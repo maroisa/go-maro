@@ -1,6 +1,7 @@
 package main
 
 import (
+	"go-maro/middleware"
 	"log"
 	"net/http"
 )
@@ -12,7 +13,7 @@ func main() {
 	registerRoutes(mux)
 
 	log.Println("Listening on http://localhost" + PORT)
-	err := http.ListenAndServe(PORT, mux)
+	err := http.ListenAndServe(PORT, middleware.Logger(mux))
 	if err != nil {
 		log.Fatalln(err)
 	}

@@ -1,0 +1,16 @@
+{
+  "name": "go-maro",
+  "version": "0.1.0",
+  "description": "URL shortener",
+  "scripts": {
+      "dev": "tailwindcss -i assets/input.css -o assets/output.css --watch",
+      "build": "tailwindcss -i assets/input.css -o assets/output.css --optimize --minify"
+  },
+  "author": "maroisa",
+  "license": "MIT",
+  "packageManager": "pnpm@10.27.0",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.18",
+    "tailwindcss": "^4.1.18"
+  }
+}
