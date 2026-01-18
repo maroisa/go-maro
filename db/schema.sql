@@ -1,0 +1,8 @@
+CREATE TABLE links (
+    id SERIAL PRIMARY KEY,
+    source VARCHAR(128) NOT NULL,
+    alias VARCHAR(32) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CREATE TABLE users
