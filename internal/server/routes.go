@@ -11,14 +11,18 @@ func RegisterRoutes(mux *http.ServeMux) {
 	})
 
 	mux.HandleFunc("POST /{$}", func(w http.ResponseWriter, r *http.Request) {
-		data := r.PostFormValue("alias")
-		if data == "" {
-			Render(w, "index.html", map[string]string{
-				"AliasMessage": "alias cannot be empty!",
-			})
+		message := IndexData{}
+		source := r.PostFormValue("source")
+		alias := r.PostFormValue("alias")
+
+		message.validateSource(source)
+		message.validateAlias(alias)
+
+		if message.isValid() == false {
+			Render(w, "index.html", message)
 			return
 		}
-		w.Write([]byte("alias: " + data))
+
 	})
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {

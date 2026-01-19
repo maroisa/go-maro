@@ -15,7 +15,9 @@
             method="POST"
             onsubmit="submitForm(event)"
         >
-            <label id="sourceLabel" for="source"></label>
+            <label id="sourceLabel" for="source">
+                {{ if .SourceMessage }} {{ .SourceMessage }} {{ end }}
+            </label>
             <input
                 class="border p-2 focus:outline-none"
                 oninput="validateSource(event)"
@@ -26,9 +28,7 @@
             />
 
             {{ if .AliasMessage }}
-
             <label for="alias"> {{.AliasMessage}} </label>
-
             {{ end }}
             <input
                 class="border p-2"
