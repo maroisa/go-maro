@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-maro/middleware"
+	"go-maro/internal/server"
 	"log"
 	"net/http"
 )
@@ -10,10 +10,10 @@ func main() {
 	mux := http.NewServeMux()
 	PORT := ":3000"
 
-	registerRoutes(mux)
+	server.RegisterRoutes(mux)
 
 	log.Println("Listening on http://localhost" + PORT)
-	err := http.ListenAndServe(PORT, middleware.Logger(mux))
+	err := http.ListenAndServe(PORT, server.Logger(mux))
 	if err != nil {
 		log.Fatalln(err)
 	}
