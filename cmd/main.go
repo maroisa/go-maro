@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"go-maro/internal/db"
+	"go-maro/internal/middleware"
 	"go-maro/internal/server"
 	"log"
 	"net/http"
@@ -21,6 +22,6 @@ func main() {
 	queries := db.New(pool)
 	srv := server.NewServer(queries)
 
-	log.Println("Listening on port", port)
-	http.ListenAndServe(port, server.Logger(srv.Mux))
+	log.Println("Listening on http://localhost" + port)
+	http.ListenAndServe(port, middleware.Logger(srv.Mux))
 }

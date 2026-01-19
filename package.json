@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "description": "URL shortener",
   "scripts": {
-      "dev": "tailwindcss -i assets/input.css -o assets/output.css --watch",
-      "build": "tailwindcss -i assets/input.css -o assets/output.css --optimize --minify"
+    "dev": "tailwindcss -i web/assets/input.css -o web/assets/output.css --watch",
+    "build": "tailwindcss -i web/assets/input.css -o web/assets/output.css --optimize --minify"
   },
   "author": "maroisa",
   "license": "MIT",

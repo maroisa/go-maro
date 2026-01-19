@@ -11,7 +11,7 @@
     >
         <form
             id="form"
-            class="flex flex-col gap-4"
+            class="flex flex-col gap-4 max-w-2xl"
             method="POST"
             onsubmit="submitForm(event)"
         >
@@ -44,6 +44,9 @@
                 Shorten!
             </button>
         </form>
+        {{ if .ServerMessage }}
+        <a href="{{.ServerMessage}}">{{ .ServerMessage }}</a>
+        {{ end }}
 
         <script>
             var sourceMessage = "";

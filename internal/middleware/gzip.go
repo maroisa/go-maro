@@ -1,8 +1,7 @@
-package server
+package middleware
 
 import (
 	"compress/gzip"
-	"log"
 	"net/http"
 	"strings"
 )
@@ -35,12 +34,5 @@ func Gzip(next http.Handler) http.Handler {
 		}
 
 		next.ServeHTTP(grw, r)
-	})
-}
-
-func Logger(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		log.Println(r.Method, r.URL.Path)
-		next.ServeHTTP(w, r)
 	})
 }

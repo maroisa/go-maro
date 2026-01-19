@@ -3,6 +3,7 @@ package server
 type IndexData struct {
 	SourceMessage string
 	AliasMessage  string
+	ServerMessage string
 }
 
 func (i *IndexData) validateSource(source string) {
