@@ -1,1 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
 @import "tailwindcss";
+
+@theme {
+    --font-sans: "Ubuntu", sans-serif;
+}
+
+@layer base {
+    html,
+    body,
+    main {
+        @apply size-full;
+    }
+
+    input {
+        @apply border border-white/10 p-2 outline-0;
+    }
+
+    input:focus {
+        @apply border border-white/10 p-2 outline-2 outline-green-300/50;
+    }
+    fieldset {
+        @apply border border-white/10 p-2;
+    }
+}

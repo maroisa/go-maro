@@ -1,94 +1,76 @@
 <!doctype html>
 <html data-theme="dark">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link href="/output.css" rel="stylesheet" />
-        <title>Go Maro</title>
-    </head>
-    <body
-        class="h-screen bg-gray-900 text-sky-200 flex flex-col justify-center items-center"
-    >
-        <form
-            id="form"
-            class="flex flex-col gap-4 max-w-2xl"
-            method="POST"
-            onsubmit="submitForm(event)"
-        >
-            <label id="sourceLabel" for="source">
-                {{ if .SourceMessage }} {{ .SourceMessage }} {{ end }}
-            </label>
-            <input
-                class="border p-2 focus:outline-none"
-                oninput="validateSource(event)"
-                placeholder="source"
-                name="source"
-                id="source"
-                type="text"
-            />
 
-            {{ if .AliasMessage }}
-            <label for="alias"> {{.AliasMessage}} </label>
-            {{ end }}
-            <input
-                class="border p-2"
-                placeholder="alias"
-                name="alias"
-                id="alias"
-                type="text"
-            />
-            <button
-                class="p-2 border hover:bg-sky-200/10 active:bg-sky-200/25"
-                type="submit"
-            >
-                Shorten!
-            </button>
-        </form>
-        {{ if .ServerMessage }}
-        <a href="{{.ServerMessage}}">{{ .ServerMessage }}</a>
-        {{ end }}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="/output.css" rel="stylesheet" />
+    <title>Go Maro</title>
+</head>
 
-        <script>
-            var sourceMessage = "";
+<body class="bg-[#1b1b1b] text-white">
+    <main>
+        <div class="size-full flex flex-col justify-center items-center gap-8">
+            <h1 class="text-4xl font-bold">
+                <span class="bg-clip-text text-transparent bg-linear-to-r bg-emerald-800 to-emerald-600">Go</span> Maro
+            </h1>
+            <form method="post" class="flex flex-col justify-center gap-2 w-full p-4 max-w-xl mx-auto">
+                <label for="source" class="font-medium">Source</label>
+                <input class="p-2 mb-2" name="source" type="text" required>
 
-            function updateLabel() {
-                document.getElementById("sourceLabel").innerText =
-                    sourceMessage;
+                <label for="alias">Alias</label>
+                <div class="flex flex-col sm:flex-row mb-2">
+                    <input class="grow p-2 border-b-0 sm:border-b border-r sm:border-r-0 sm:grow-0"
+                        placeholder="https://go.maroisa.com/" type="text" disabled>
+                    <input class="grow p-2" name="alias" type="text" required>
+                </div>
 
-                if (sourceMessage.length > 0) {
-                    document
-                        .getElementById("source")
-                        .classList.add("border-red-500");
-                    return;
-                }
+                <button class="bg-emerald-900 p-2" type="submit">Submit</button>
+            </form>
+        </div>
+    </main>
+    <script>
+        var sourceMessage = "";
+
+        function updateLabel() {
+            document.getElementById("sourceLabel").innerText =
+                sourceMessage;
+
+            if (sourceMessage.length > 0) {
                 document
                     .getElementById("source")
-                    .classList.remove("border-red-500");
+                    .classList.add("border-red-500");
+                return;
             }
+            document
+                .getElementById("source")
+                .classList.remove("border-red-500");
+        }
 
-            function validateSource(e) {
-                const value = event.target.value;
-                sourceMessage = "";
+        function validateSource(e) {
+            const value = event.target.value;
+            sourceMessage = "";
 
-                // check empty
-                if (value.length == 0) {
-                    sourceMessage = "no source!";
-                    updateLabel();
-                    return;
-                }
-                // check max length
-                if (value.length > 128) {
-                    sourceMessage = "URL terlalu panjang!";
-                    updateLabel();
-                    return;
-                }
-                // URL validation
-                const pattern =
-                    /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
-                let valid = pattern.test(value);
-                sourceMessage = valid ? "" : "URL tidak valid!";
+            // check empty
+            if (value.length == 0) {
+                sourceMessage = "no source!";
                 updateLabel();
+                return;
             }
-        </script>
-    </body>
+            // check max length
+            if (value.length > 128) {
+                sourceMessage = "URL terlalu panjang!";
+                updateLabel();
+                return;
+            }
+            // URL validation
+            const pattern =
+                /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+            let valid = pattern.test(value);
+            sourceMessage = valid ? "" : "URL tidak valid!";
+            updateLabel();
+        }
+    </script>
+</body>
+
 </html>
