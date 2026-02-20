@@ -2,9 +2,9 @@ package server
 
 import (
 	"context"
+	"encoding/json"
 	"go-maro/internal/db"
 	"go-maro/web"
-	"log"
 	"net/http"
 	"strings"
 )
@@ -28,21 +28,27 @@ func (s *Server) RegisterRoutes() {
 			return
 		}
 
-		insertedLink, err := s.DB.CreateLink(context.Background(), db.CreateLinkParams{
+		InsertedLink, err := s.DB.CreateLink(context.Background(), db.CreateLinkParams{
 			Source: source,
 			Alias:  alias,
 		})
 
 		if err != nil {
-			log.Println(err.Error())
+			errMessage := map[string]string{
+				"aliasError": "duplicate alias!",
+			}
+			json, _ := json.Marshal(errMessage)
+			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(400)
-			Render(w, "index.html", nil)
+			w.Write(json)
 			return
 		}
 
-		Render(w, "index.html", IndexData{
-			ServerMessage: "http://" + r.Host + "/" + insertedLink.Alias,
+		w.Header().Set("content-type", "application/json")
+		jsonMessage, _ := json.Marshal(map[string]string{
+			"alias": InsertedLink.Alias,
 		})
+		w.Write(jsonMessage)
 
 	})
 

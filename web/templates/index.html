@@ -9,42 +9,57 @@
 </head>
 
 <body class="bg-[#1b1b1b] text-white">
+    <dialog id="successDialog" class="open:bg-black/25 size-full open:flex open:items-center">
+        <div class="bg-[#1b1b1b] border-white/10 p-4 m-4 text-white w-full">
+            <a id="link" class="underline text-blue-500" href="/">https://localhost:3000/loremipsum</a>
+            <button onclick="modalClose()" class="w-full p-2 mt-4 border border-white/10" autofocus>Close</button>
+        </div>
+    </dialog>
+
     <main>
         <div class="size-full flex flex-col justify-center items-center gap-8">
             <h1 class="text-4xl font-bold">
                 <span class="bg-clip-text text-transparent bg-linear-to-r bg-emerald-800 to-emerald-600">Go</span> Maro
             </h1>
-            <form method="post" class="flex flex-col justify-center gap-2 w-full p-4 max-w-xl mx-auto">
-                <label for="source" class="font-medium">Source</label>
-                <input class="p-2 mb-2" name="source" type="text" required>
+            <form onsubmit="submitForm(event)" class="flex flex-col justify-center gap-2 w-full p-4 max-w-xl mx-auto">
+                <label for="source" class="flex justify-between">
+                    <span class="font-medium">Source</span>
+                    <span id="sourceMessage" class="text-red-500"></span>
+                </label>
+                <input class="p-2 mb-2" name="source" type="text" id="source" oninput="validateSource(event)" required>
 
-                <label for="alias">Alias</label>
+                <label for="alias" class="flex justify-between">
+                    <span class="font-medium">Alias</span>
+                    <span id="aliasMessage" class="text-red-500"></span>
+                </label>
                 <div class="flex flex-col sm:flex-row mb-2">
-                    <input class="grow p-2 border-b-0 sm:border-b border-r sm:border-r-0 sm:grow-0"
+                    <input class="grow p-2 border-b-0 sm:border-b border-r sm:border-r-0 sm:grow-0 font-sans"
                         placeholder="https://go.maroisa.com/" type="text" disabled>
-                    <input class="grow p-2" name="alias" type="text" required>
+                    <input class="grow p-2" name="alias" id="alias" type="text" required>
                 </div>
 
-                <button class="bg-emerald-900 p-2" type="submit">Submit</button>
+                <button class="bg-emerald-900 p-2 hover:bg-emerald-800 active:bg-emerald-700"
+                    type="submit">Submit</button>
             </form>
         </div>
     </main>
     <script>
+        const dialog = document.getElementById("successDialog")
         var sourceMessage = "";
 
         function updateLabel() {
-            document.getElementById("sourceLabel").innerText =
+            document.getElementById("sourceMessage").innerText =
                 sourceMessage;
 
             if (sourceMessage.length > 0) {
                 document
                     .getElementById("source")
-                    .classList.add("border-red-500");
+                    .classList.add("focus:outline-red-500");
                 return;
             }
             document
                 .getElementById("source")
-                .classList.remove("border-red-500");
+                .classList.remove("focus:outline-red-500");
         }
 
         function validateSource(e) {
@@ -69,6 +84,35 @@
             let valid = pattern.test(value);
             sourceMessage = valid ? "" : "URL tidak valid!";
             updateLabel();
+        }
+
+        function submitForm(e) {
+            e.preventDefault()
+            if (sourceMessage.length > 0) {
+                return
+            }
+
+            const formData = new FormData(e.target)
+            fetch(window.location.href, {
+                method: "POST",
+                body: formData
+            }).then(res => {
+                console.log(res)
+                return res.json()
+            }).then(json => {
+                if (Object.hasOwn(json, "aliasError")) {
+                    document.getElementById("aliasMessage").innerText = json.aliasError
+                    return
+                }
+
+                document.getElementById("link").innerText = window.location.href + json.alias
+                document.getElementById("link").href = window.location.href + json.alias
+                document.getElementById("aliasMessage").innerText = ""
+                dialog.showModal()
+            })
+        }
+        function modalClose() {
+            dialog.close()
         }
     </script>
 </body>
