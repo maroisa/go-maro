@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"go-maro/internal/db"
 	"go-maro/web"
+	"log"
 	"net/http"
 	"strings"
 )
@@ -34,6 +35,7 @@ func (s *Server) RegisterRoutes() {
 		})
 
 		if err != nil {
+			log.Println(err)
 			errMessage := map[string]string{
 				"aliasError": "duplicate alias!",
 			}

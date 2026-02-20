@@ -1,1 +1,7 @@
 node_modules/
+tmp
+
+# Binary build
+go_maro
+go-maro
+main
