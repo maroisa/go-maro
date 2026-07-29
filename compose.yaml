@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    env_file:
+      - path: .env
+        required: true
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    ports:
+      - 3002:3000
+    entrypoint: /app/go-maro-bin

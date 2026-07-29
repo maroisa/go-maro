@@ -8,8 +8,7 @@ import (
 func GetDatabaseUrl() string {
 	url := os.Getenv("DATABASE_URL")
 	if url == "" {
-		url = "postgres://rin:blank@127.0.0.1:5432/go_maro"
-		log.Println("DATABASE_URL is not set. Default to:", url)
+		log.Fatal("failed to get DATABASE_URL")
 	}
 
 	return url
