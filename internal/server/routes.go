@@ -29,6 +29,10 @@ func (s *Server) RegisterRoutes() {
 			return
 		}
 
+		if !strings.HasPrefix(source, "http"){
+			source = "https://" + source
+		}
+
 		InsertedLink, err := s.DB.CreateLink(context.Background(), db.CreateLinkParams{
 			Source: source,
 			Alias:  alias,
@@ -63,10 +67,14 @@ func (s *Server) RegisterRoutes() {
 			return
 		}
 
-		http.Redirect(w, r, "https://"+fetchedLink.Source, http.StatusFound)
+		http.Redirect(w, r, fetchedLink.Source, http.StatusFound)
 	})
 
 	s.Mux.HandleFunc("/output.css", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFileFS(w, r, web.AssetsFS, "assets/output.css")
+	})
+
+	s.Mux.HandleFunc("/favicon.svg", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFileFS(w, r, web.AssetsFS, "assets/favicon.svg")
 	})
 }
