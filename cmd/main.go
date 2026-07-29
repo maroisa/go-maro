@@ -9,6 +9,8 @@ import (
 	"net/http"
 
 	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/jackc/pgx/v5/stdlib"
+	"github.com/pressly/goose/v3"
 )
 
 func main() {
@@ -18,6 +20,15 @@ func main() {
 	}
 
 	port := server.GetPort()
+
+	goose.SetBaseFS(db.EmbedMigrations)
+	if err := goose.SetDialect("postgres"); err != nil {
+		log.Fatalln(err)
+	}
+
+	if err = goose.Up(stdlib.OpenDBFromPool(pool), "migrations"); err != nil {
+		log.Fatalln(err)
+	}
 
 	queries := db.New(pool)
 	srv := server.NewServer(queries)

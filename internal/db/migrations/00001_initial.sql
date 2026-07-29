@@ -1,6 +1,10 @@
+-- +goose Up
 CREATE TABLE links (
     id SERIAL PRIMARY KEY,
     source VARCHAR(128) NOT NULL,
     alias VARCHAR(32) NOT NULL UNIQUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- +goose Down
+DROP TABLE links;

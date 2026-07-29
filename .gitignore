@@ -6,3 +6,4 @@ go_maro
 go-maro
 main
 .env
+.envrc
